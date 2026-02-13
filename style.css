@@ -1,0 +1,217 @@
+/* ベース設定: 暖かく、目に優しい色合い */
+:root {
+  --bg-color: #FDFBF7;
+  --text-main: #4A4A4A;
+  --text-light: #8E8E93;
+  --primary: #A2C4C9;
+  --card-bg: #FFFFFF;
+  --btn-forgot: #E57373;
+  --btn-hard: #FFD54F;
+  --btn-easy: #81C784;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", "Rounded M+ 1c", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  /* iPadでピンチズームを防ぎ、片手操作しやすくする */
+  touch-action: manipulation;
+  padding-bottom: 80px; /* ナビゲーションの余白 */
+}
+
+/* 画面切り替え */
+.view {
+  display: none;
+  padding: 24px;
+  animation: fadeIn 0.3s ease;
+}
+.view.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ヘッダーとテキスト */
+.header h1 {
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+.hint-text {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* ボタン類 */
+button {
+  font-family: inherit;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+button:active {
+  opacity: 0.7;
+}
+.primary-btn {
+  background-color: var(--primary);
+  color: white;
+  width: 100%;
+  font-weight: bold;
+}
+.secondary-btn {
+  background-color: #EFEFEF;
+  color: var(--text-main);
+  width: 100%;
+}
+.ghost-btn {
+  background: none;
+  color: var(--text-light);
+  padding: 8px;
+}
+
+/* ボトムナビゲーション */
+#bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(253, 251, 247, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0 24px 0;
+  border-top: 1px solid #EAEAEA;
+  z-index: 100;
+}
+#bottom-nav button {
+  background: none;
+  padding: 8px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+#bottom-nav button.active {
+  color: var(--text-main);
+  font-weight: bold;
+}
+
+/* セッション画面（フラッシュカード） */
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--card-bg);
+  min-height: 300px;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+.card-text {
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+/* 評価ボタン */
+#eval-buttons {
+  display: flex;
+  gap: 12px;
+}
+.eval-btn {
+  flex: 1;
+  color: white;
+  font-weight: bold;
+  padding: 18px 0;
+}
+.eval-forgot { background-color: var(--btn-forgot); }
+.eval-hard { background-color: var(--btn-hard); color: #795548; }
+.eval-easy { background-color: var(--btn-easy); }
+
+/* ダイアログ（オーバーレイ） */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(253, 251, 247, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+.dialog {
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
+}
+.dialog p { margin-bottom: 24px; line-height: 1.6; }
+.dialog-buttons { display: flex; flex-direction: column; gap: 12px; }
+
+/* フォームとリスト */
+input, textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #EAEAEA;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #FAFAFA;
+}
+.card-list-item {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 12px;
+  border: 1px solid #EAEAEA;
+}
+.date-badge {
+  font-size: 12px;
+  background: var(--primary);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+/* 設定セッション */
+.settings-section {
+  background: white;
+  padding: 24px;
+  border-radius: 24px;
+  margin-top: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+.settings-section h3 { margin-bottom: 12px; font-size: 18px; }
+.philosophy-text { line-height: 1.8; color: var(--text-light); }
+.pro-features { margin: 16px 0; padding-left: 20px; line-height: 1.8; }
+
