@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gentle Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav id="bottom-nav">
+    <button onclick="switchTab('home')" id="nav-home" class="active">ホーム</button>
+    <button onclick="switchTab('library')" id="nav-library">カード庫</button>
+    <button onclick="switchTab('settings')" id="nav-settings">設定</button>
+  </nav>
+
+  <main id="view-home" class="view active">
+    <div class="header">
+      <h1>今日の学習</h1>
+      <p id="due-count-text">準備完了です</p>
+    </div>
+    <div class="center-content">
+      <button id="start-btn" class="primary-btn" onclick="startSession()">学習をはじめる</button>
+    </div>
+  </main>
+
+  <main id="view-session" class="view">
+    <div class="session-header">
+      <span id="progress-text">1 / 10</span>
+      <button class="ghost-btn" onclick="askEndSession()">やめる</button>
+    </div>
+
+    <div id="flashcard" class="card" onclick="toggleCard()">
+      <div id="card-content" class="card-text">ここに問題が出ます</div>
+      <div id="tap-hint" class="hint-text">タップして答えを見る</div>
+    </div>
+
+    <div id="eval-buttons" class="hidden">
+      <button class="eval-btn eval-forgot" onclick="evaluateCard('forgot')">忘れた</button>
+      <button class="eval-btn eval-hard" onclick="evaluateCard('hard')">微妙</button>
+      <button class="eval-btn eval-easy" onclick="evaluateCard('remembered')">覚えた</button>
+    </div>
+
+    <div id="proposal-overlay" class="overlay hidden">
+      <div class="dialog">
+        <p>お疲れ様です。<br>1枚終わりました。</p>
+        <div class="dialog-buttons">
+          <button class="primary-btn" onclick="continueSession()">続けますか？</button>
+          <button class="secondary-btn" onclick="endSession()">今日はここまでにしますか？</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <main id="view-library" class="view">
+    <div class="header">
+      <h1>カード庫</h1>
+      <p id="card-limit-text">0 / 30 枚 (無料版)</p>
+    </div>
+    
+    <div class="add-card-form">
+      <input type="text" id="new-q" placeholder="問題 (表面)">
+      <textarea id="new-a" placeholder="答え (裏面)"></textarea>
+      <button class="secondary-btn" onclick="addCard()">追加する</button>
+    </div>
+
+    <div id="card-list" class="card-list">
+      </div>
+  </main>
+
+  <main id="view-settings" class="view">
+    <div class="header">
+      <h1>設定とご案内</h1>
+    </div>
+
+    <div class="settings-section">
+      <h3>このアプリについて</h3>
+      <p class="philosophy-text">
+        焦らず、自分のペースで。<br>
+        このアプリは「続けること」を一番大切に作られています。<br>
+        ノルマやプレッシャーはありません。
+      </p>
+    </div>
+
+    <div class="settings-section pro-section">
+      <h3>Pro版のご案内</h3>
+      <p>このアプリが役に立ったら、Proで応援していただけませんか？学生の方でもお小遣いで買える、一度きりの購入（約500円）です。</p>
+      <ul class="pro-features">
+        <li>保存枚数が 30枚 → 500枚 に</li>
+        <li>1回の学習枚数を自由に設定</li>
+        <li>データのバックアップ（エクスポート機能）</li>
+      </ul>
+      <button class="primary-btn" onclick="upgradeToPro()" id="upgrade-btn">Proで応援する (テスト用)</button>
+    </div>
+
+    <div class="settings-section">
+      <h3>通知設定</h3>
+      <label>
+        学習の開始時間:
+        <input type="time" id="study-time" onchange="saveSettings()">
+      </label>
+      <button class="ghost-btn" onclick="requestNotification()">通知を許可する</button>
+      <p class="hint-text">※ブラウザを開いている時にお知らせします</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
